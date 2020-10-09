@@ -13,3 +13,5 @@ Route::apiResource('/products','ProductController');
 Route::group(['prefix'=>'products'], function(){
     Route::apiResource('/{product}/reviews','ReviewController');
 });
+Add ur entity to migration file
+php artisan migrate
