@@ -28,4 +28,4 @@ Modify auth.php in config folder change driver => token TO driver => passport
 composer require laravel/ui
 php artisan ui vue --auth
 npm install && npm run dev
-
+php artisan make:exception ProductNotBelongsToUser
