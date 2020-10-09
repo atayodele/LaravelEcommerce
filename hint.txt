@@ -17,3 +17,5 @@ Add ur entity to migration file
 php artisan migrate
 Seed datas in factories and seeds folder
 php artisan db:seed
+php artisan make:resource Product/ProductCollection
+php artisan make:resource Product/ProductResource
