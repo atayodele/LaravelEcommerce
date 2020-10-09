@@ -15,3 +15,5 @@ Route::group(['prefix'=>'products'], function(){
 });
 Add ur entity to migration file
 php artisan migrate
+Seed datas in factories and seeds folder
+php artisan db:seed
