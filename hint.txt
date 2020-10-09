@@ -1,0 +1,15 @@
+git init
+git status
+remove vendor from gitignore
+git status
+git add .
+git commit -m "initial commit"
+git remote add origin url
+git push -u origin main
+
+php artisan make:model Model/Product -a
+php artisan make:model Model/Review -a
+Route::apiResource('/products','ProductController');
+Route::group(['prefix'=>'products'], function(){
+    Route::apiResource('/{product}/reviews','ReviewController');
+});
