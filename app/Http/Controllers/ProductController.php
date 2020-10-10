@@ -18,11 +18,42 @@ class ProductController extends Controller
         $this->middleware('auth:api')->except('index','show');
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/api/products",
+     *   tags={"Product"},
+     *   summary="Get All Products",
+     *   operationId="testing",
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error"),
+     * )
+     *
+     */
     public function index()
     {
         return ProductCollection::collection(Product::paginate(20));
     }
 
+    /**
+     * @SWG\Post(
+     *   path="/api/products",
+     *      tags={"Product"},
+     *      operationId="ApiSaveProduct",
+     *      summary="Add Product",
+     *      consumes={"application/x-www-form-urlencoded"},
+     *      produces={"application/json"},
+     *      @SWG\Parameter(name="name", in="formData", required=true, type="string"),
+     *      @SWG\Parameter(name="description", in="formData", required=true, type="string"),
+     *      @SWG\Parameter(name="stock", in="formData", required=true, type="number"),
+     *      @SWG\Parameter(name="price", in="formData", required=true, type="number"),
+     *      @SWG\Parameter(name="discount", in="formData", required=true, type="number"),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error"),
+     * )
+     *
+     */
     public function store(Request $request)
     {
         $product = new Product;
@@ -37,11 +68,43 @@ class ProductController extends Controller
         ],Response::HTTP_CREATED);
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/api/products/{product}",
+     *      tags={"Product"},
+     *      operationId="ApiShowProduct",
+     *      summary="Show Product By Product Id",
+     *      @SWG\Parameter(name="product", in="path", required=true, type="number"),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=500, description="internal server error"),
+     * )
+     *
+     */
     public function show(Product $product)
     {
         return new ProductResource($product);
     }
 
+    /**
+     * @SWG\Put(
+     *   path="/api/products/{product}",
+     *      tags={"Product"},
+     *      operationId="ApiUpdateProduct",
+     *      summary="Update Product",
+     *      consumes={"application/x-www-form-urlencoded"},
+     *      produces={"application/json"},
+     *      @SWG\Parameter(name="product", in="path", required=true, type="number"),
+     *      @SWG\Parameter(name="name", in="formData", required=true, type="string"),
+     *      @SWG\Parameter(name="description", in="formData", required=true, type="string"),
+     *      @SWG\Parameter(name="stock", in="formData", required=true, type="number"),
+     *      @SWG\Parameter(name="price", in="formData", required=true, type="number"),
+     *      @SWG\Parameter(name="discount", in="formData", required=true, type="number"),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=406, description="not acceptable"),
+     *   @SWG\Response(response=500, description="internal server error"),
+     * )
+     *
+     */
     public function update(Request $request, Product $product)
     {
         $this->ProductUserCheck($product);
@@ -53,6 +116,18 @@ class ProductController extends Controller
         ],Response::HTTP_CREATED);
     }
 
+    /**
+     * @SWG\Delete(
+     *   path="/api/products/{product}",
+     *      tags={"Product"},
+     *      operationId="ApiDeleteProduct",
+     *      summary="Delete Product By Product Id",
+     *      @SWG\Parameter(name="product", in="path", required=true, type="number"),
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=500, description="internal server error"),
+     * )
+     *
+     */
     public function destroy(Product $product)
     {
         $this->ProductUserCheck($product);
